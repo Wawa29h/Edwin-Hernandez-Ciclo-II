@@ -1,8 +1,8 @@
-// Biblioteca digital
+
 #include <iostream>
 #include <string>
 #include <vector>
-// areglar duplicados
+
 class Libro {
     public:
     std::string titulo;            
