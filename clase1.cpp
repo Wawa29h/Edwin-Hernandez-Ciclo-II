@@ -51,7 +51,7 @@ int leerAnio() {
             anio = std::stoi(entrada); // convertir string a int
             return anio;
         } else {
-            std::cout << "Error: debe ingresar solo numeros.\n";
+            std::cout << "Error: debe ingresar solo numeros." << std::endl;
         }
     }
 }
@@ -85,13 +85,14 @@ class Biblioteca {
     }
 //const me ayuda a q no se podra modificar  el dato
     public:
-         void agregarlibro(const Libro& libro) {
+     
+    void agregarlibro(const Libro& libro) {
         if (existetitulo(libro.titulo)) {
             std::cout << "Ya existe un libro con ese titulo"<< std::endl;
             return;
         }
         coleccion.push_back(libro);
-        std::cout << "Agregando libro: " << libro.titulo << "\n";
+        std::cout << "Agregando libro: " << libro.titulo << std::endl;
     }
         void mostrarbiblioteca() {
             std::cout << "Nuestros libros:" << std::endl;
@@ -105,15 +106,15 @@ bool prestarLibro(const std::string& titulo) {
     for (auto& libro : coleccion) {
         if (libro.titulo == titulo) {
             if (!libro.disponible) {
-                std::cout << "El libro ya está prestado.\n";
+                std::cout << "El libro ya está prestado." << std::endl;
                 return false;
             }
             libro.disponible = false;
-            std::cout << "Préstamo realizado: " << libro.titulo << "\n";
+            std::cout << "Préstamo realizado: " << libro.titulo << std::endl;
             return true;
         }
     }
-    std::cout << "No se encontró el libro.\n";
+    std::cout << "No se encontró el libro." << std::endl;
     return false;
 }
 
@@ -121,69 +122,69 @@ bool devolverLibro(const std::string& titulo) {
     for (auto& libro : coleccion) {
         if (libro.titulo == titulo) {
             if (libro.disponible) {
-                std::cout << "El libro ya estaba disponible.\n";
+                std::cout << "El libro ya estaba disponible." << std::endl;
                 return false;
             }
             libro.disponible = true;
-            std::cout << "Devolución realizada: " << libro.titulo << "\n";
+            std::cout << "Devolución realizada: " << libro.titulo << std::endl;
             return true;
         }
     }
-    std::cout << "No se encontró el libro.\n";
+    std::cout << "No se encontró el libro." << std::endl;
     return false;
 }
 
 
 void registrarUsuario(const std::string& nombre) {
     if (buscarUsuario(nombre)) { 
-        std::cout << "El usuario ya existe.\n"; 
+        std::cout << "El usuario ya existe." << std::endl;
         return; 
     }
     usuarios.push_back(Usuario{nombre});
-    std::cout << "Usuario registrado: " << nombre << "\n";
+    std::cout << "Usuario registrado: " << nombre << std::endl;
 }
 
 void mostrarUsuarios() const {
     if (usuarios.empty()) { 
-        std::cout << "No hay usuarios.\n"; 
+        std::cout << "No hay usuarios." << std::endl;
         return; 
     }
     for (const auto& u : usuarios) {
         std::cout << "Usuario: " << u.nombre 
-                  << " (tiene " << u.libros.size() << " libros)\n";
+                  << " (tiene " << u.libros.size() << " libros)" << std::endl;
     }
 }
 
 void prestar(const std::string& titulo, const std::string& nombreUsuario) {
     Libro* l = buscarLibro(titulo);
-    if (!l) { std::cout << "No se encontró el libro.\n"; return; }
-    if (!l->disponible) { std::cout << "El libro ya está prestado.\n"; return; }
+    if (!l) { std::cout << "No se encontró el libro." << std::endl; return; }
+    if (!l->disponible) { std::cout << "El libro ya está prestado." << std::endl; return; }
 
     Usuario* u = buscarUsuario(nombreUsuario);
-    if (!u) { std::cout << "No se encontró el usuario.\n"; return; }
+    if (!u) { std::cout << "No se encontró el usuario." << std::endl; return; }
 
     l->disponible = false;
     u->libros.push_back(titulo);
-    std::cout << "Prestado \"" << titulo << "\" a " << nombreUsuario << "\n";
+    std::cout << "Prestado \"" << titulo << "\" a " << nombreUsuario << std::endl;
 }
 
 void devolver(const std::string& titulo, const std::string& nombreUsuario) {
     Libro* l = buscarLibro(titulo);
-    if (!l) { std::cout << "No se encontró el libro.\n"; return; }
+    if (!l) { std::cout << "No se encontró el libro." << std::endl; return; }
 
     Usuario* u = buscarUsuario(nombreUsuario);
-    if (!u) { std::cout << "No se encontró el usuario.\n"; return; }
+    if (!u) { std::cout << "No se encontró el usuario." << std::endl; return; }
 
     for (size_t i = 0; i < u->libros.size(); ++i) {
         if (u->libros[i] == titulo) {
             u->libros.erase(u->libros.begin() + static_cast<long>(i));
             l->disponible = true;
             std::cout << "Devuelto \"" << titulo 
-                      << "\" por " << nombreUsuario << "\n";
+                      << "\" por " << nombreUsuario << std::endl;
             return;
         }
     }
-    std::cout << "Ese usuario no tenía ese libro.\n";
+    std::cout << "Ese usuario no tenía ese libro" << std::endl;
 }
 };
  // por que cierra, creo q es por q cierra clase
@@ -270,7 +271,7 @@ if (opcion == 1) {
     nuevo.aniodepublicacion = leerAnio();
     nuevo.disponible = true;
     mibiblioteca.agregarlibro(nuevo);
-    std::cout << "Libro agregado.\n";
+    std::cout << "Libro agregado." << std::endl;
 }
 else if (opcion == 2) {
     mibiblioteca.mostrarbiblioteca();
